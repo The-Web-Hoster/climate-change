@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Climate Awareness Project</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-items">
+    <button class="nav-btn active" data-section="home">Home</button>
+    <button class="nav-btn" data-section="info">Climate Info</button>
+    <button class="nav-btn" data-section="ai">AI Assistant</button>
+    <span class="nav-indicator"></span>
+  </div>
+</nav>
+
+<main>
+  <section class="page-section active" id="home">
+    <h1>Climate Awareness Project 🌍</h1>
+    <p>This project explains climate change and sustainability.</p>
+  </section>
+
+  <section class="page-section" id="info">
+    <h1>Why Climate Change Matters</h1>
+    <p>
+      Climate change impacts ecosystems, weather patterns, and human life.
+      Taking action today protects future generations.
+    </p>
+  </section>
+
+  <section class="page-section" id="ai">
+    <h1>AI Assistant 🤖</h1>
+    <p>Ask any climate-related question.</p>
+
+    <div class="chat-box" id="chatBox"></div>
+
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Ask me something..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
