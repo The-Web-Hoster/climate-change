@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>UAE Climate Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: radial-gradient(circle at top, #0f3d2e, #000 60%);
+  color: #c8facc;
+  overflow-x: hidden;
+}
+
+/* ===== HEADER ===== */
+header {
+  min-height: 100vh;
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 8%;
+  background: linear-gradient(180deg, rgba(0,0,0,0.7), rgba(0,0,0,1));
+  position: relative;
+}
+
+header h1 {
+  font-size: 3.2rem;
+  margin: 20px 0 0 0;
+  animation: fadeDown 1.2s ease;
+  color:#39FF14;
+  text-shadow:0 0 10px #39FF14,0 0 20px #32CD32;
+}
+
+header p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  opacity: 0.9;
+  animation: fadeUp 1.2s ease;
+  text-shadow:0 0 5px #39FF14;
+}
+
+.scroll-indicator {
+  margin-top: 40px;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  animation: bounce 2s infinite;
+  color:#39FF14;
+  text-shadow:0 0 10px #39FF14;
+}
+
+/* ===== HEADER-TO-SECTION TRANSITION ===== */
+header::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(to top, #0f3d2e 0%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+}
+
+/* ===== SECTIONS ===== */
+section {
+  padding: 80px 10%;
+  opacity:0;
+  transform:translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+section.visible { 
+  opacity:1; 
+  transform:translateY(0); 
+  background: radial-gradient(circle at top, #0f3d2e, #000 60%);
+}
+
+.section-title {
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  border-left: 5px solid #39FF14;
+  padding-left: 15px;
+  color:#39FF14;
+  text-shadow:0 0 10px #39FF14,0 0 20px #32CD32;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.card {
+  background: rgba(0,0,0,0.7);
+  border: 1px solid #39FF14;
+  border-radius: 14px;
+  padding: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 10px #39FF14;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(57,255,20,0.5);
+}
+
+#result {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease, opacity 0.6s ease;
+}
+
+#result.show { max-height: 120px; opacity: 1; }
+
+.value { font-size: 2.5rem; font-weight: bold; color: #7CFF7C; text-shadow:0 0 8px #7CFF7C;}
+.label { margin-top: 8px; font-size: 0.95rem; opacity: 0.8; }
+.source { display: inline-block; margin-top: 10px; font-size: 0.8rem; color: #81c784; text-decoration: none; border-bottom: 1px dashed transparent; transition: border 0.3s; }
+.source:hover { border-bottom: 1px dashed #81c784; }
+.info { max-width: 900px; line-height: 1.8; opacity: 0.9; }
+
+/* ===== FOOTER ===== */
+footer {
+  padding: 40px 10%;
+  background: #000;
+  border-top: 1px solid #39FF14;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* ===== UAE FLAG SVG ===== */
+.uae-flag {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7));
+  border-radius: 12px;
+  outline: 3px solid rgba(255,255,255,0.6);
+  outline-offset: 8px;
+  transition: outline 0.4s ease, outline-offset 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  margin-bottom: 20px;
+}
+.uae-flag:hover { outline: 4px solid #ffffff; outline-offset: 14px; transform: scale(1.03); box-shadow:0 0 40px rgba(255,255,255,0.35); }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounce { 0%,20%,50%,80%,100% { transform: translateY(0); } 40% { transform: translateY(10px); } 60% { transform: translateY(5px); } }
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  header h1 { font-size: 2.2rem; }
+  header p { font-size: 1rem; }
+  .cards { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <svg class="uae-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30">
+    <rect width="60" height="30" fill="#ffffff"></rect>
+    <rect width="15" height="30" fill="#ff0000"></rect>
+    <rect x="15" width="45" height="10" fill="#00732f"></rect>
+    <rect x="15" y="10" width="45" height="10" fill="#ffffff"></rect>
+    <rect x="15" y="20" width="45" height="10" fill="#000000"></rect>
+  </svg>
+
+  <h1>Carbon Footprint and Climate Tracker</h1>
+  <p>Estimate your personal CO₂ emissions and see whether your impact on the environment is low, normal, or high.<br>
+     Also check what the climate is like!<br><br>
+     Made By Muhammad Ashaz Azmi 9E :D
+  </p>
+
+  <div class="scroll-indicator">⬇ Scroll for UAE climate data</div>
+</header>
+
+<!-- ===== ABOUT ===== -->
+<section class="visible">
+  <div class="section-title">About the UAE Climate</div>
+
+  <!-- Info first -->
+  <div class="info">
+    The UAE has a desert climate characterized by extremely hot summers, mild winters, low rainfall, and very high UV levels. Monitoring environmental data such as temperature, UV index, and daylight hours is important for health, sustainability, and climate awareness.
+  </div>
+
+  <!-- Climate cards will be inserted dynamically here -->
+  <div id="weatherContainer" class="cards"></div>
+
+  <!-- CO2 calculator -->
+  <center>
+    <div class="card" style="max-width:420px; margin-top:30px;">
+      <label class="label">Daily electricity usage (hours)</label>
+      <input id="electricity" type="number" placeholder="e.g. 6" style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:none;">
+      <label class="label">Car travel (km per day)</label>
+      <input id="travel" type="number" placeholder="e.g. 30" style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:none;">
+      <button onclick="calculateCO2()" style="width:100%; padding:12px; border-radius:10px; background:#4caf50; color:#000; font-weight:bold; border:none; cursor:pointer;"> Calculate Footprint </button>
+      <div id="result" style="margin-top:20px; font-size:1.1rem;"></div>
+    </div>
+  </center>
+</section>
+
+<!-- ===== WHY DATA MATTERS ===== -->
+<section class="visible">
+  <div class="section-title">Why This Data Matters</div>
+  <div class="info">
+    High temperatures and UV levels impact human health, water consumption, and energy use. Live environmental dashboards like this help people make safer daily decisions and raise awareness about climate change and environmental protection.
+  </div>
+</section>
+
+<!-- ===== UV SAFETY ===== -->
+<section class="visible">
+  <div class="section-title">UV Safety Tips</div>
+  <div class="info">
+    The UV Index is a scale from 1 to 11+, and the higher the number, the greater the risk of harm from unprotected sun exposure.<br>
+    Here’s a quick guide:
+    <ul>
+      <li>0-2 (Low): Safe to be outside. Minimal sun protection needed.</li>
+      <li>3-5 (Moderate): Some risk. Shade, sunscreen, and sunglasses are smart.</li>
+      <li>High (6-7): High risk; take precautions such as wearing sunscreen and protective clothing.</li>
+      <li>Very High (8-10): Very high risk; avoid sun exposure during midday hours.</li>
+      <li>Extreme (11 and above): Extreme risk; take all precautions to avoid sun exposure.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Data provided by <a href="https://open-meteo.com/" target="_blank" class="source">Open‑Meteo</a><br>
+  Refresh for latest data every time<br>
+  (this took 3 days of pure coding)
+</footer>
+
+<script>
+// SCROLL ANIMATION
+const sections = document.querySelectorAll("section");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){ entry.target.classList.add("visible"); }
+  });
+},{ threshold: 0.2 });
+sections.forEach(sec => observer.observe(sec));
+
+// CO2 CALCULATOR
+function calculateCO2() {
+  const electricity = Number(document.getElementById("electricity").value || 0);
+  const travel = Number(document.getElementById("travel").value || 0);
+  const electricityCO2 = electricity * 0.4;
+  const travelCO2 = travel * 0.21;
+  const total = (electricityCO2 + travelCO2).toFixed(2);
+  let status = "Low";
+  let color = "#7CFF7C";
+  if (total > 20) { status = "High"; color = "#ff5252"; }
+  else if (total > 10) { status = "Neutral"; color = "#ffd54f"; }
+  const resultBox = document.getElementById("result");
+  resultBox.innerHTML = `<strong>Total CO₂:</strong> ${total} kg/day<br>
+                         <strong>Status:</strong> <span style="color:${color}; font-weight:bold;">${status}</span>`;
+  resultBox.classList.remove("show");
+  void resultBox.offsetWidth;
+  resultBox.classList.add("show");
+}
+
+// LIVE DATA
+const container = document.getElementById("weatherContainer");
+const url = "https://api.open-meteo.com/v1/forecast?latitude=24.4539&longitude=54.3773&current=temperature_2m,wind_speed_10m,uv_index&daily=sunrise,sunset&timezone=Asia/Dubai";
+fetch(url)
+.then(res => res.json())
+.then(data => {
+  const temp = data.current.temperature_2m;
+  const wind = data.current.wind_speed_10m;
+  const uv = data.current.uv_index;
+  const sunrise = data.daily.sunrise[0].split("T")[1];
+  const sunset = data.daily.sunset[0].split("T")[1];
+  container.innerHTML = `
+    <div class="card"><div class="value">${temp}°C</div><div class="label">Temperature</div><a class="source" href="https://open-meteo.com" target="_blank">Source</a></div>
+    <div class="card"><div class="value">${uv}</div><div class="label">UV Index</div><a class="source" href="https://open-meteo.com" target="_blank">Source</a></div>
+    <div class="card"><div class="value">${wind} km/h</div><div class="label">Wind Speed</div><a class="source" href="https://open-meteo.com" target="_blank">Source</a></div>
+    <div class="card"><div class="value">${sunrise}</div><div class="label">Sunrise</div><a class="source" href="https://open-meteo.com" target="_blank">Source</a></div>
+    <div class="card"><div class="value">${sunset}</div><div class="label">Sunset</div><a class="source" href="https://open-meteo.com" target="_blank">Source</a></div>
+  `;
+})
+.catch(() => { container.innerHTML = "<p>Failed to load climate data.</p>"; });
+</script>
+
+</body>
+</html>
