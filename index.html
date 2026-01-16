@@ -1,47 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Climate Awareness Project</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>UAE Climate Hub</title>
+<link rel="icon" type="image/png" href="Picture1.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Track your carbon footprint and check live climate data in the UAE. Learn about CO₂ emissions and UV Index.">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<nav class="top-nav">
-  <div class="nav-items">
-    <button class="nav-btn active" data-section="home">Home</button>
-    <button class="nav-btn" data-section="info">Climate Info</button>
-    <button class="nav-btn" data-section="ai">AI Assistant</button>
-    <span class="nav-indicator"></span>
+<!-- TOP NAVIGATION BAR -->
+<nav>
+  <div class="logo">UAE Climate Hub</div>
+  <div class="nav-links">
+    <a href="#calculator">Calculator</a>
+    <a href="#live-data">Live Data</a>
+    <a href="#about">About</a>
+    <a href="#tips">UV Tips</a>
   </div>
 </nav>
 
-<main>
-  <section class="page-section active" id="home">
-    <h1>Climate Awareness Project 🌍</h1>
-    <p>This project explains climate change and sustainability.</p>
-  </section>
+<!-- HEADER / HERO -->
+<header>
+  <svg class="uae-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" role="img" aria-label="UAE Flag">
+    <rect width="60" height="30" fill="#ffffff"></rect>
+    <rect width="15" height="30" fill="#ff0000"></rect>
+    <rect x="15" width="45" height="10" fill="#00732f"></rect>
+    <rect x="15" y="10" width="45" height="10" fill="#ffffff"></rect>
+    <rect x="15" y="20" width="45" height="10" fill="#000000"></rect>
+  </svg>
 
-  <section class="page-section" id="info">
-    <h1>Why Climate Change Matters</h1>
-    <p>
-      Climate change impacts ecosystems, weather patterns, and human life.
-      Taking action today protects future generations.
-    </p>
-  </section>
+  <h1>Carbon Footprint & Climate Tracker</h1>
+  <p>Estimate your personal CO₂ emissions and see whether your impact is low, neutral, or high.<br>
+     Check the live UAE climate data and learn how to stay safe in the sun.<br><br>
+     Made by Muhammad Ashaz Azmi 9E :D
+  </p>
+</header>
 
-  <section class="page-section" id="ai">
-    <h1>AI Assistant 🤖</h1>
-    <p>Ask any climate-related question.</p>
+<!-- CALCULATOR -->
+<section id="calculator">
+  <h2 class="section-title">CO₂ Calculator</h2>
+  <div class="calculator-card">
+    <label for="electricity">Daily electricity usage (hours)</label>
+    <input id="electricity" type="number" placeholder="e.g. 6" min="0">
 
-    <div class="chat-box" id="chatBox"></div>
+    <label for="travel">Car travel (km per day)</label>
+    <input id="travel" type="number" placeholder="e.g. 30" min="0">
 
-    <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Ask me something..." />
-      <button onclick="sendMessage()">Send</button>
-    </div>
-  </section>
-</main>
+    <button id="calc-btn">Calculate Footprint</button>
+
+    <div id="result"></div>
+  </div>
+</section>
+
+<!-- LIVE DATA -->
+<section id="live-data">
+  <h2 class="section-title">Live Climate Data</h2>
+  <div class="cards" id="weatherData">
+    <!-- Weather cards populated by JS -->
+  </div>
+</section>
+
+<!-- ABOUT UAE CLIMATE -->
+<section id="about">
+  <h2 class="section-title">About the UAE Climate</h2>
+  <div class="info">
+    The UAE has a desert climate characterized by extremely hot summers, mild winters, low rainfall, and very high UV levels. Monitoring environmental data such as temperature, UV index, and daylight hours is important for health, sustainability, and climate awareness.
+  </div>
+</section>
+
+<!-- UV TIPS -->
+<section id="tips">
+  <h2 class="section-title">How to follow UV index properly</h2>
+  <div class="info">
+    The UV Index is a scale from 1 to 11+, and the higher the number, the greater the risk of harm from unprotected sun exposure.
+    <ul>
+      <li>0-2 (Low): Safe to be outside. Minimal sun protection needed.</li>
+      <li>3-5 (Moderate): Use shade, sunscreen, sunglasses.</li>
+      <li>6-7 (High): High risk; use protective clothing and sunscreen.</li>
+      <li>8-10 (Very High): Avoid sun during midday.</li>
+      <li>11+ (Extreme): Extreme risk; take all precautions.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Data provided by <a href="https://open-meteo.com" target="_blank" class="source">Open-Meteo (Open-Source Weather API)</a><br>
+  Refresh for latest data every time
+</footer>
 
 <script src="script.js"></script>
 </body>
