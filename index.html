@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<!-- NAVIGATION BAR -->
+<!-- NAVIGATION -->
 <nav>
   <div class="logo">UAE Climate Hub</div>
   <div class="nav-links">
@@ -22,23 +22,18 @@
 </nav>
 
 <!-- PAGES -->
-
-<!-- Calculator Page -->
 <section id="calculator" class="page active-page">
   <h2 class="section-title">CO₂ Calculator</h2>
   <div class="calculator-card">
     <label for="electricity">Daily electricity usage (hours)</label>
     <input id="electricity" type="number" placeholder="e.g. 6" min="0">
-
     <label for="travel">Car travel (km per day)</label>
     <input id="travel" type="number" placeholder="e.g. 30" min="0">
-
     <button id="calc-btn">Calculate Footprint</button>
     <div id="result"></div>
   </div>
 </section>
 
-<!-- Live Climate Page -->
 <section id="live-data" class="page">
   <h2 class="section-title">Live UAE Climate Data</h2>
   <div class="cards" id="weatherData">
@@ -46,21 +41,17 @@
   </div>
 </section>
 
-<!-- UV Tips Page -->
 <section id="tips" class="page">
-  <h2 class="section-title">How to follow UV index properly</h2>
-  <div class="info">
-    <ul>
-      <li>0-2 (Low): Safe to be outside.</li>
-      <li>3-5 (Moderate): Shade, sunscreen, sunglasses.</li>
-      <li>6-7 (High): Protective clothing and sunscreen.</li>
-      <li>8-10 (Very High): Avoid sun during midday.</li>
-      <li>11+ (Extreme): Take all precautions.</li>
-    </ul>
-  </div>
+  <h2 class="section-title">UV Safety Tips</h2>
+  <ul>
+    <li>0-2: Low — safe to be outside</li>
+    <li>3-5: Moderate — shade, sunscreen, sunglasses</li>
+    <li>6-7: High — protective clothing and sunscreen</li>
+    <li>8-10: Very High — avoid midday sun</li>
+    <li>11+: Extreme — take all precautions</li>
+  </ul>
 </section>
 
-<!-- AI Chatbot Page -->
 <section id="ai-assistant" class="page">
   <h2 class="section-title">AI Climate Assistant</h2>
   <div class="chat-container">
@@ -70,9 +61,8 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  Data provided by <a href="https://open-meteo.com" target="_blank" class="source">Open-Meteo (Open-Source Weather API)</a>
+  Data provided by <a href="https://open-meteo.com" target="_blank">Open-Meteo API</a>
 </footer>
 
 <script src="script.js"></script>
