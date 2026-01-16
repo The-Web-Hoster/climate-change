@@ -1,3 +1,96 @@
+:root {
+  --primary-green: #4caf50;
+  --highlight-green: #7CFF7C;
+  --neutral-yellow: #ffd54f;
+  --danger-red: #ff5252;
+  --bg-dark: #0f1f0f;
+  --card-bg: rgba(0,0,0,0.6);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg-dark);
+  color: var(--highlight-green);
+}
+
+/* NAVIGATION */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5%;
+  z-index: 100;
+  border-bottom: 2px solid var(--primary-green);
+}
+nav .logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.nav-links button {
+  background: var(--primary-green);
+  color: #000;
+  margin-left: 10px;
+  padding: 8px 15px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+.nav-links button:hover { background: var(--highlight-green); }
+
+/* PAGE CONTAINERS */
+.page {
+  display: none;
+  padding: 120px 10% 50px;
+  min-height: calc(100vh - 60px);
+}
+.active-page { display: block; }
+
+/* SECTION TITLES */
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--primary-green);
+  padding-left: 12px;
+}
+
+/* CALCULATOR */
+.calculator-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.calculator-card label { width: 100%; margin-bottom: 5px; }
+.calculator-card input { flex: 1; padding: 8px; border-radius: 6px; border: none; background: #111; color: #fff; }
+.calculator-card button {
+  flex: 1 1 100%;
+  margin-top: 10px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+/* CARDS FOR CLIMATE DATA */
+.cards { display: flex; flex-wrap: wrap; gap: 15px; }
+.card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  flex: 1 1 150px;
+  text-align: center;
+}
+.card .value { font-size: 1.8rem; font-weight: bold; margin-bottom: 5px; }
+.card .label { font-size: 0.9rem; opacity: 0.8; }
+
 /* CHATBOT - AI messages as cards */
 .chat-container {
   display: flex;
@@ -46,4 +139,16 @@
   border: 2px solid var(--primary-green);
   align-self: flex-start;
   text-align: left;
+}
+
+#chat-input { padding: 10px; border-radius: 8px; border: none; flex: 1; background: #111; color: #fff; }
+#chat-send { padding: 10px 15px; border-radius: 8px; background: var(--primary-green); border: none; cursor: pointer; }
+
+/* FOOTER */
+footer { text-align: center; padding: 20px; font-size: 0.85rem; opacity: 0.8; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .calculator-card { flex-direction: column; }
+  .cards { flex-direction: column; }
 }
