@@ -31,14 +31,29 @@ function calculateCO2(){
   document.getElementById("co2Result").innerText = `Approximate CO₂ emissions: ${co2} kg/day`;
 }
 
-// ===== LIVE DATA (placeholder, real API can be integrated) =====
-const liveData = document.getElementById("liveData");
-liveData.innerHTML = `
-Temperature: 30°C <br>
-Humidity: 45% <br>
-Wind: 15 km/h <br>
-UV Index: 8
-`;
+async function fetchLiveData() {
+  const response = await fetch(
+    "https://api.open-meteo.com/v1/forecast?latitude=24.4539&longitude=54.3773&current_weather=true&hourly=uv_index"
+  );
+  const data = await response.json();
+  const liveData = document.getElementById("liveData");
+
+  if(data.current_weather){
+    liveData.innerHTML = `
+      Temperature: ${data.current_weather.temperature}°C <br>
+      Wind: ${data.current_weather.windspeed} km/h <br>
+      Weather Code: ${data.current_weather.weathercode} <br>
+      UV Index: ${data.hourly?.uv_index[0] || "N/A"}
+    `;
+  } else {
+    liveData.innerHTML = "Live data unavailable.";
+  }
+}
+
+// Call once and every 5 minutes
+fetchLiveData();
+setInterval(fetchLiveData, 300000);
+
 
 // ===== HUGGING FACE AI =====
 const HF_API_KEY = "PASTE_YOUR_HUGGINGFACE_KEY_HERE";
