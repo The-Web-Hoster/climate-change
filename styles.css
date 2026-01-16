@@ -1,118 +1,47 @@
-:root {
-  --primary-green: #4caf50;
-  --highlight-green: #7CFF7C;
-  --neutral-yellow: #ffd54f;
-  --danger-red: #ff5252;
-  --bg-dark: #000;
-  --bg-gradient-start: #0f3d2e;
-  --bg-gradient-end: #000;
-}
+// CO2 Calculator
+const btn = document.getElementById("calc-btn");
+const resultBox = document.getElementById("result");
 
-* { box-sizing: border-box; }
+btn.addEventListener("click", () => {
+  const electricity = Number(document.getElementById("electricity").value || 0);
+  const travel = Number(document.getElementById("travel").value || 0);
 
-body {
-  margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: radial-gradient(circle at top, var(--bg-gradient-start), var(--bg-gradient-end) 60%);
-  color: #c8facc;
-  overflow-x: hidden;
-}
+  const electricityCO2 = electricity * 0.4;
+  const travelCO2 = travel * 0.21;
+  const total = (electricityCO2 + travelCO2).toFixed(2);
 
-/* NAV BAR */
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 5%;
-  z-index: 100;
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid var(--primary-green);
-}
+  let status = "Low";
+  let color = "#7CFF7C";
+  if(total > 20){ status="High"; color="#ff5252"; }
+  else if(total > 10){ status="Neutral"; color="#ffd54f"; }
 
-nav .logo {
-  font-weight: bold;
-  font-size: 1.3rem;
-  color: var(--highlight-green);
-}
+  resultBox.innerHTML = `<strong>Total CO₂:</strong> ${total} kg/day<br>
+                         <strong>Status:</strong> <span style="color:${color}; font-weight:bold;">${status}</span>`;
 
-nav a {
-  color: #fff;
-  margin-left: 20px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
-}
+  // Animate result
+  resultBox.style.transform = "scale(0.95)";
+  setTimeout(()=>{ resultBox.style.transform="scale(1)"; }, 100);
+});
 
-nav a:hover { color: var(--primary-green); }
+// Fetch Live Weather Data
+const container = document.getElementById("weatherData");
+const url = "https://api.open-meteo.com/v1/forecast?latitude=24.4539&longitude=54.3773&current=temperature_2m,wind_speed_10m,uv_index&daily=sunrise,sunset&timezone=Asia/Dubai";
 
-/* HEADER */
-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 120px 8% 80px; /* account for nav */
-  background: linear-gradient(180deg, rgba(0,0,0,0.7), rgba(0,0,0,1));
-}
+fetch(url)
+.then(res => res.json())
+.then(data => {
+  const temp = data.current.temperature_2m;
+  const wind = data.current.wind_speed_10m;
+  const uv = data.current.uv_index;
+  const sunrise = data.daily.sunrise[0].split("T")[1];
+  const sunset = data.daily.sunset[0].split("T")[1];
 
-header h1 { font-size: 3.2rem; margin: 20px 0; animation: fadeDown 1.2s ease; }
-header p { font-size: 1.2rem; max-width: 600px; opacity: 0.9; animation: fadeUp 1.2s ease; }
-
-.uae-flag { width: 100%; max-width: 480px; height: auto; margin-bottom: 20px; border-radius: 12px; }
-
-.section-title { font-size: 2.2rem; margin-bottom: 30px; border-left: 5px solid var(--primary-green); padding-left: 15px; }
-
-section { padding: 80px 10%; }
-
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
-
-.card, .calculator-card {
-  background: rgba(0,0,0,0.7);
-  border: 1px solid #1b5e20;
-  border-radius: 14px;
-  padding: 25px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 0 rgba(76,175,80,0);
-}
-
-.card:hover, .calculator-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(76,175,80,0.3);
-}
-
-#result { margin-top: 20px; font-size: 1.1rem; transition: all 0.6s ease; }
-
-/* Buttons */
-button {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  background: var(--primary-green);
-  color: #000;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-button:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 12px rgba(76,175,80,0.5);
-}
-
-/* Animations */
-@keyframes fadeDown { from { opacity:0; transform: translateY(-40px);} to {opacity:1; transform:translateY(0);} }
-@keyframes fadeUp { from { opacity:0; transform: translateY(40px);} to {opacity:1; transform:translateY(0);} }
-
-/* Responsive */
-@media (max-width: 768px) {
-  header h1 { font-size: 2.2rem; }
-  header p { font-size: 1rem; }
-  .cards, .calculator-card { grid-template-columns: 1fr; }
-}
+  container.innerHTML = `
+    <div class="card"><div class="value">${temp}°C</div><div class="label">Temperature</div></div>
+    <div class="card"><div class="value">${uv}</div><div class="label">UV Index</div></div>
+    <div class="card"><div class="value">${wind} km/h</div><div class="label">Wind Speed</div></div>
+    <div class="card"><div class="value">${sunrise}</div><div class="label">Sunrise</div></div>
+    <div class="card"><div class="value">${sunset}</div><div class="label">Sunset</div></div>
+  `;
+})
+.catch(() => { container.innerHTML = "<p>Failed to load climate data.</p>"; });
