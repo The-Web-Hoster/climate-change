@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<!-- TOP NAVIGATION BAR -->
+<!-- NAVIGATION BAR -->
 <nav>
   <div class="logo">UAE Climate Hub</div>
   <div class="nav-links">
@@ -18,10 +18,11 @@
     <a href="#live-data">Live Data</a>
     <a href="#about">About</a>
     <a href="#tips">UV Tips</a>
+    <a href="#ai-assistant">AI Assistant</a>
   </div>
 </nav>
 
-<!-- HEADER / HERO -->
+<!-- HEADER -->
 <header>
   <svg class="uae-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" role="img" aria-label="UAE Flag">
     <rect width="60" height="30" fill="#ffffff"></rect>
@@ -49,17 +50,14 @@
     <input id="travel" type="number" placeholder="e.g. 30" min="0">
 
     <button id="calc-btn">Calculate Footprint</button>
-
     <div id="result"></div>
   </div>
 </section>
 
-<!-- LIVE DATA -->
+<!-- LIVE CLIMATE DATA -->
 <section id="live-data">
   <h2 class="section-title">Live Climate Data</h2>
-  <div class="cards" id="weatherData">
-    <!-- Weather cards populated by JS -->
-  </div>
+  <div class="cards" id="weatherData"></div>
 </section>
 
 <!-- ABOUT UAE CLIMATE -->
@@ -82,6 +80,16 @@
       <li>8-10 (Very High): Avoid sun during midday.</li>
       <li>11+ (Extreme): Extreme risk; take all precautions.</li>
     </ul>
+  </div>
+</section>
+
+<!-- AI CHATBOT SECTION -->
+<section id="ai-assistant">
+  <h2 class="section-title">AI Climate Assistant</h2>
+  <div class="chat-container">
+    <div id="chat-log"></div>
+    <input type="text" id="chat-input" placeholder="Ask me about climate or your CO₂ footprint...">
+    <button id="chat-send">Send</button>
   </div>
 </section>
 
