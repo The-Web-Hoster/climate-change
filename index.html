@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/png" href="Picture1.png">
 <title>UAE Climate Hub</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
@@ -57,11 +58,11 @@ header p {
 header::after {
   content: "";
   position: absolute;
-  bottom: -1px;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 120px;
-  background: linear-gradient(to top, #0f3d2e 0%, rgba(0,0,0,0) 100%);
+  height: 200px; /* taller fade for smooth blending */
+  background: linear-gradient(to top, rgba(15,61,46,1) 0%, rgba(15,61,46,0.8) 30%, rgba(15,61,46,0.4) 60%, rgba(15,61,46,0) 100%);
   pointer-events: none;
 }
 
@@ -78,14 +79,12 @@ section.visible {
   transform:translateY(0); 
   background: radial-gradient(circle at top, #0f3d2e, #000 60%);
 }
-
 .section-title {
   font-size: 2.2rem;
   margin-bottom: 30px;
-  border-left: 5px solid #39FF14;
-  padding-left: 15px;
-  color:#39FF14;
-  text-shadow:0 0 10px #39FF14,0 0 20px #32CD32;
+
+  color: #39FF14;
+  text-shadow: 0 0 10px #39FF14, 0 0 20px #32CD32;
 }
 
 .cards {
@@ -136,16 +135,38 @@ footer {
 /* ===== UAE FLAG SVG ===== */
 .uae-flag {
   width: 100%;
-  max-width: 480px;
+  max-width: 750px;
   height: auto;
+
+  animation: flagReveal 1.4s ease-out forwards;
+  animation-delay: 0.2s;
+
   filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7));
   border-radius: 12px;
+
   outline: 3px solid rgba(255,255,255,0.6);
-  outline-offset: 8px;
-  transition: outline 0.4s ease, outline-offset 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
-  margin-bottom: 20px;
+  outline-offset: 10px;
+
+  margin-bottom: 30px;
+  box-shadow: 0 0 60px rgba(255,255,255,0.25);
+
+  transition:
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    outline-offset 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    outline 0.6s ease,
+    box-shadow 0.6s ease,
+    filter 0.6s ease;
 }
-.uae-flag:hover { outline: 4px solid #ffffff; outline-offset: 14px; transform: scale(1.03); box-shadow:0 0 40px rgba(255,255,255,0.35); }
+
+header h1 { animation-delay: 0.6s; }
+header p { animation-delay: 0.8s; }
+
+.uae-flag:hover {
+  transform: scale(1.04);
+  outline-offset: 18px;
+  outline: 4px solid #ffffff;
+  box-shadow: 0 0 90px rgba(255,255,255,0.35);
+}
 
 /* ===== ANIMATIONS ===== */
 @keyframes fadeDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
@@ -183,27 +204,26 @@ footer {
 <!-- ===== ABOUT ===== -->
 <section class="visible">
   <div class="section-title">About the UAE Climate</div>
-
-  <!-- Info first -->
   <div class="info">
     The UAE has a desert climate characterized by extremely hot summers, mild winters, low rainfall, and very high UV levels. Monitoring environmental data such as temperature, UV index, and daylight hours is important for health, sustainability, and climate awareness.
   </div>
-
-  <!-- Climate cards will be inserted dynamically here -->
-  <div id="weatherContainer" class="cards"></div><br><br>
-
-  <!-- CO2 calculator -->
-  <center>
-    <div class="card" style="max-width:420px; margin-top:30px;">
-      <label class="label">Daily electricity usage (hours)</label>
-      <input id="electricity" type="number" placeholder="e.g. 6" style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:none;">
-      <label class="label">Car travel (km per day)</label>
-      <input id="travel" type="number" placeholder="e.g. 30" style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:none;">
-      <button onclick="calculateCO2()" style="width:100%; padding:12px; border-radius:10px; background:#4caf50; color:#000; font-weight:bold; border:none; cursor:pointer;"> Calculate Footprint </button>
-      <div id="result" style="margin-top:20px; font-size:1.1rem;"></div>
-    </div>
-  </center>
+  <div id="weatherContainer" class="cards"></div>
 </section>
+
+<!-- CO2 calculator -->
+<center>
+<section class="visible">
+  <div class="section-title">Carbon footprint calculator</div>
+  <div class="card" style="max-width:420px; margin-top:30px;">
+    <label class="label">Daily electricity usage (hours)</label>
+    <input id="electricity" type="number" placeholder="e.g. 6" style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:none;">
+    <label class="label">Car travel (km per day)</label>
+    <input id="travel" type="number" placeholder="e.g. 30" style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:none;">
+    <button onclick="calculateCO2()" style="width:100%; padding:12px; border-radius:10px; background:#4caf50; color:#000; font-weight:bold; border:none; cursor:pointer;"> Calculate Footprint </button>
+    <div id="result" style="margin-top:20px; font-size:1.1rem;"></div>
+  </div>
+</section>
+</center>
 
 <!-- ===== WHY DATA MATTERS ===== -->
 <section class="visible">
